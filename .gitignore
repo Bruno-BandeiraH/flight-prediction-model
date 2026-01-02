@@ -15,3 +15,6 @@ Thumbs.db
 # ML artifacts (ajuste conforme decisão do time)
 *.log
 *.tmp
+
+# Logs
+logs/
