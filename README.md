@@ -8,7 +8,7 @@ Modelo de previsão de voos criado pelo time de data science para ser implementa
 
 ## Como usar
 - Baixe o repositório na sua máquina.
-- Abra o terminal e crie a imagem do serviço com o comando: ```docker build -t flight-prediction-model .```
+- Abra o terminal na pasta do repositório e crie a imagem do serviço com o comando: ```docker build -t flight-prediction-model .```
 - Rode o container com o comando: ```docker run -p 8000:8000 flight-prediction-model```
 - API disponível em http://localhost:8000/predict
 - Swagger: http://localhost:8000/docs
