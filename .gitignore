@@ -1,0 +1,17 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtualenv
+.env
+.env.*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# ML artifacts (ajuste conforme decisão do time)
+*.log
+*.tmp
