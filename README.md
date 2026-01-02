@@ -1,13 +1,13 @@
-# MODELO DE PREVISÃO DE VOOS
+# API DO MODELO DE PREVISÃO DE VOOS
 
 Modelo de previsão de voos criado pelo time de data science para ser implementado a API do projeto.
 
 
 ## Requisitos
-- Docker 29.1.2 ou +
+- Docker 29.1.2 ou +.
 
 ## Como usar
-- Baixe o repositório na sua máquina
+- Baixe o repositório na sua máquina.
 - Abra o terminal e crie a imagem do serviço com o comando: ```docker build -t flight-prediction-model .```
 - Rode o container com o comando: ```docker run -p 8000:8000 flight-prediction-model```
 - API disponível em http://localhost:8000/predict
