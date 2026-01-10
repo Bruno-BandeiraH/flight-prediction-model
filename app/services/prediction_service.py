@@ -26,15 +26,15 @@ class PredictionService:
             model_path = MODEL_PATH
         
         self.model_path = model_path
-        self.pipeline = None
+        self.model = None
         self.threshold = None
-        self.features_esperadas = None
+        self.feature_order = None
         
         self._load_model()
     
     def _load_model(self):
         """Carrega e valida o modelo ML."""
-        logger.info(f"Carregando modelo de: {self.model_path}")
+        logger.info(f"Carregando modelo depipe_xgb_te: {self.model_path}")
         
         # Converter Path para string para compatibilidade com joblib
         model_path_str = str(self.model_path)
@@ -44,14 +44,14 @@ class PredictionService:
         if not isinstance(artifacts, dict):
             raise RuntimeError("Artefato do modelo inválido: esperado um dict.")
         
-        required_keys = {"pipeline", "threshold_recomendado", "features_esperadas"}
+        required_keys = {"model", "feature_order"}
         missing = required_keys - artifacts.keys()
         if missing:
             raise RuntimeError(f"Artefato do modelo incompleto. Faltando: {missing}")
         
-        self.pipeline = artifacts["pipeline"]
-        self.threshold = artifacts.get("threshold_recomendado", 0.5)
-        self.features_esperadas = artifacts.get("features_esperadas")
+        self.model = artifacts["model"]
+        self.threshold = artifacts.get("threshold_recomendado", 0.45)
+        self.feature_order = artifacts.get("feature_order")
         
         logger.info(f"Modelo carregado com sucesso. Tipo: {type(artifacts)}")
         logger.info(f"Chaves do artefato: {list(artifacts.keys())}")
@@ -67,15 +67,15 @@ class PredictionService:
             PredictionResponse com resultado da predição
         """
         # Geração das features
-        df = gerar_features(request.dict(), self.features_esperadas)
+        df = gerar_features(request.dict(), self.feature_order)
         
         # Predição
-        prob = self.pipeline.predict_proba(df)[0][1]
-        previsao = "Atrasado" if prob >= self.threshold else "Pontual"
+        prob = self.model.predict_proba(df)[0][1]
+        previsao = 1 if prob >= self.threshold else 0
         
         return PredictionResponse(
-            previsao=previsao,
-            probabilidade=round(float(prob), 4),
-            threshold_usado=self.threshold
+            previsao_atraso=previsao,
+            probabilidade_atraso=round(float(prob), 2),
+            #threshold_usado=self.threshold
         )
 

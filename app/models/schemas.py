@@ -7,19 +7,18 @@ from datetime import datetime
 
 class FlightRequest(BaseModel):
     """Schema para requisição de predição de voo."""
-    icao_empresa_aerea: str
+    icao_empresa: str
     icao_aerodromo_origem: str
     icao_aerodromo_destino: str
-    hora_prevista: datetime
-    voos_no_slot: int
-    tempo_voo_estimado: float
+    partida_prevista: datetime
+    tempo_voo_estimado_hr: float
+    distancia_km: float
 
 
 class PredictionResponse(BaseModel):
     """Schema para resposta de predição."""
-    previsao: str
-    probabilidade: float
-    threshold_usado: float
+    previsao_atraso: int
+    probabilidade_atraso: float
 
 
 class HealthResponse(BaseModel):

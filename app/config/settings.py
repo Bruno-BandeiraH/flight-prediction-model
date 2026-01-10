@@ -7,5 +7,5 @@ from pathlib import Path
 BASE_DIR = Path(__file__).parent.parent.parent
 
 # Caminho do modelo ML
-MODEL_PATH = BASE_DIR / "model" / "modelo_atraso_voos_xgb_te_v1.pkl"
+MODEL_PATH = BASE_DIR / "model" / "modelo_previsao_atraso_voos_v2.pkl"
 

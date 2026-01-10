@@ -18,13 +18,13 @@ def gerar_features(data: dict, features_esperadas: list) -> pd.DataFrame:
     df = pd.DataFrame([data])
 
     # Hora fracionada (ex: 14.5 = 14:30)
-    df["hora_prevista_frac"] = (
-        df["hora_prevista"].dt.hour +
-        df["hora_prevista"].dt.minute / 60
+    df["tempo_estimado_voo_hr"] = (
+        df["partida_prevista"].dt.hour +
+        df["partida_prevista"].dt.minute / 60
     )
 
     # Faixa horária (exemplo simples)
-    def faixa_horaria(h):
+    def turno(h):
         if 6 <= h < 12:
             return "manha"
         elif 12 <= h < 18:
@@ -34,16 +34,16 @@ def gerar_features(data: dict, features_esperadas: list) -> pd.DataFrame:
         else:
             return "madrugada"
 
-    df["faixa_horaria"] = df["hora_prevista"].dt.hour.apply(faixa_horaria)
+    df["turno"] = df["partida_prevista"].dt.hour.apply(turno)
 
     # Fim de semana
-    df["eh_fim_de_semana"] = df["hora_prevista"].dt.weekday >= 5
+    # df["eh_fim_de_semana"] = df["partida_prevista"].dt.weekday >= 5
 
     # Mês do voo
-    df["mes"] = df["hora_prevista"].dt.month
+    df["mes"] = df["partida_prevista"].dt.month
 
     # Remover coluna original
-    df = df.drop(columns=["hora_prevista"])
+    df = df.drop(columns=["partida_prevista"])
 
     # Garantir ordem e presença das features
     df = df[features_esperadas]
