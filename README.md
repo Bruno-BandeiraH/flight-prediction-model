@@ -25,6 +25,7 @@ flight-prediction-model/
 
 ## Requisitos
 - Docker 29.1.2 ou +.
+- Python 3.12.10 ou + (em caso de desenvolvimento local)
 
 ## Como usar
 
@@ -42,23 +43,24 @@ flight-prediction-model/
 
 ## Exemplo de requisição POST no endpoint /predict
 
+A variável ```previsao_atraso``` retorna 0 (pontual) ou 1 (atrasado).
+
 Requisição: 
 ```JSON
 {
-  "icao_empresa_aerea": "AZ",
-  "icao_aerodromo_origem": "SBGR",
-  "icao_aerodromo_destino": "SBRJ",
-  "hora_prevista": "2025-11-12T22:30:00",
-  "voos_no_slot": 18,
-  "tempo_voo_estimado": 55
+  "icao_empresa": "AZU",  #str
+  "icao_aerodromo_origem": "SBRF",  #str
+  "icao_aerodromo_destino": "SBRJ",  # str
+  "partida_prevista": "2025-11-12T22:30:00",  # datetime
+  "tempo_voo_estimado_hr": 1.2,  # float 
+  "distancia_km": 50.0  # float
 }
 ```
 
 Resposta: 
 ```JSON
 {
-    "previsao": "Pontual",
-    "probabilidade": 0.296,
-    "threshold_usado": 0.5
+    "previsao_atraso": 0,  # int
+    "probabilidade_atraso": 0.29,  # float
 }
 ```
